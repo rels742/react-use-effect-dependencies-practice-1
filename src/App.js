@@ -8,10 +8,36 @@ export default function App() {
 
   const [data, setData] = useState(null);
 
-  console.log({ data });
+  // console.log({ data });
+  console.log("rendering app.js", dataType);
 
   // Write code here.
   //
+
+  // useEffect(() => {
+  //   fetch(`https://swapi.dev/api/${dataType}/`)
+  //     .then((res) => res.json())
+
+  //     .then((data) => setData(data.results));
+
+  // }, [dataType]);
+
+  useEffect(() => {
+    if (dataType.length === 0) {
+      setData(null);
+      return;
+    }
+
+    fetch(`https://swapi.dev/api/${dataType}/`)
+      .then(function (Response) {
+        // console.log("the response", Response);
+        return Response.json();
+      })
+      .then(function (data) {
+        console.log("the data", data);
+        setData(data);
+      });
+  }, [dataType]);
 
   return (
     <div>
